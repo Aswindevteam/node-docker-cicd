@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: Build and Validate Node.js Application
+    name: Build, Validate and Dockerize Application
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,12 @@ jobs:
 
       - name: Build application
         run: npm run build --if-present
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t node-docker-cicd:${{ github.sha }} \
+            -t node-docker-cicd:latest .
+
+      - name: Verify Docker image
+        run: docker images node-docker-cicd
