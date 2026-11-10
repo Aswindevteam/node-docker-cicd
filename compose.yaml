@@ -1,0 +1,27 @@
+services:
+  node-server:
+    build: .
+    container_name: node-server
+    ports:
+      - "${APP_PORT}:3006"
+    environment:
+      PORT: 3006
+      NODE_ENV: ${NODE_ENV}
+      APP_NAME: ${APP_NAME}
+    volumes:
+      - node-logs:/app/logs
+    networks:
+      - node-network
+
+  node-client:
+    image: my-node-app:v1
+    container_name: node-client
+    networks:
+      - node-network
+
+networks:
+  node-network:
+    driver: bridge
+
+volumes:
+  node-logs:
