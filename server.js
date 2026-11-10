@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || "development";
 const appName = process.env.APP_NAME || "my-node-app";
+const version = process.env.APP_VERSION || "1.0.0";
 
 fs.mkdirSync("/app/logs", { recursive: true });
 
@@ -18,7 +19,8 @@ app.get("/", (req, res) => {
     res.json({
         application: appName,
         environment: env,
-        message: "Docker Compose volumes working!"
+        message: "Docker Compose volumes working!",
+        version: version
     });
 });
 
